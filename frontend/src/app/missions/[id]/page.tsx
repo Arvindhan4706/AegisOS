@@ -50,7 +50,7 @@ export default function MissionDetailPage() {
           </button>
           <div>
             <div className="flex items-center space-x-3">
-              <h1 className="text-2xl font-heading font-bold text-primary">MISSION {mission.id}</h1>
+              <h1 className="text-2xl  font-bold text-primary">MISSION {mission.id}</h1>
               <Badge variant="outline" className={getStatusColor(mission.status)}>
                 {mission.status}
               </Badge>
@@ -63,13 +63,13 @@ export default function MissionDetailPage() {
         </div>
 
         <div className="flex space-x-3">
-          <button onClick={() => updateMissionStatus(mission.id, 'RUNNING')} disabled={mission.status === 'RUNNING'} className="bg-primary/20 hover:bg-primary/30 text-primary border border-primary/50 px-4 py-2 rounded-md font-medium transition-colors flex items-center shadow-[0_0_15px_rgba(var(--primary),0.2)] disabled:opacity-50 disabled:shadow-none">
+          <button onClick={() => updateMissionStatus(mission.id, 'RUNNING')} disabled={mission.status === 'RUNNING'} className="bg-primary/20 hover:bg-primary/30 text-primary border border-border px-4 py-2 rounded-md font-medium transition-colors flex items-center shadow-sm disabled:opacity-50 disabled:shadow-none">
             <Play className="w-4 h-4 mr-2" /> Start Mission
           </button>
           <button onClick={() => updateMissionStatus(mission.id, 'PAUSED')} disabled={mission.status !== 'RUNNING'} className="bg-card hover:bg-muted text-foreground border border-border px-4 py-2 rounded-md font-medium transition-colors flex items-center disabled:opacity-50">
             <Pause className="w-4 h-4 mr-2" /> Pause
           </button>
-          <button onClick={() => injectFailure('a4')} className="bg-status-critical/20 hover:bg-status-critical/30 text-status-critical border border-status-critical/50 px-4 py-2 rounded-md font-medium transition-colors flex items-center shadow-[0_0_15px_rgba(var(--status-critical),0.2)]">
+          <button onClick={() => injectFailure('a4')} className="bg-status-critical/20 hover:bg-status-critical/30 text-status-critical border border-status-critical/50 px-4 py-2 rounded-md font-medium transition-colors flex items-center shadow-sm">
             <AlertTriangle className="w-4 h-4 mr-2" /> Inject Failure
           </button>
         </div>
@@ -77,22 +77,22 @@ export default function MissionDetailPage() {
 
       {/* Metrics Row */}
       <div className="grid grid-cols-4 gap-4 shrink-0">
-        <div className="glass-panel rounded-lg p-4 border border-border/50 flex justify-between items-center">
-          <div><p className="text-xs text-muted-foreground">Elapsed Time</p><p className="text-lg font-mono">00:04:23</p></div>
+        <div className="shadow-sm border rounded-lg p-4 border border-border/50 flex justify-between items-center">
+          <div><p className="text-xs text-muted-foreground">Elapsed Time</p><p className="text-lg text-sm">00:04:23</p></div>
           <Activity className="text-primary w-5 h-5" />
         </div>
-        <div className="glass-panel rounded-lg p-4 border border-border/50 flex justify-between items-center">
-          <div><p className="text-xs text-muted-foreground">Agents Deployed</p><p className="text-lg font-mono">{mission.agents.length}</p></div>
+        <div className="shadow-sm border rounded-lg p-4 border border-border/50 flex justify-between items-center">
+          <div><p className="text-xs text-muted-foreground">Agents Deployed</p><p className="text-lg text-sm">{mission.agents.length}</p></div>
           <Target className="text-status-warning w-5 h-5" />
         </div>
-        <div className="glass-panel rounded-lg p-4 border border-border/50 flex justify-between items-center">
+        <div className="shadow-sm border rounded-lg p-4 border border-border/50 flex justify-between items-center">
           <div className="w-full">
-            <div className="flex justify-between items-center mb-1"><p className="text-xs text-muted-foreground">Progress</p><p className="text-sm font-mono">{mission.progress}%</p></div>
+            <div className="flex justify-between items-center mb-1"><p className="text-xs text-muted-foreground">Progress</p><p className="text-sm text-sm">{mission.progress}%</p></div>
             <Progress value={mission.progress} className="h-1.5" />
           </div>
         </div>
-        <div className="glass-panel rounded-lg p-4 border border-border/50 flex justify-between items-center">
-          <div><p className="text-xs text-muted-foreground">Mission Trust</p><p className="text-lg font-mono text-status-healthy">94.2%</p></div>
+        <div className="shadow-sm border rounded-lg p-4 border border-border/50 flex justify-between items-center">
+          <div><p className="text-xs text-muted-foreground">Mission Trust</p><p className="text-lg text-sm text-status-healthy">94.2%</p></div>
           <ShieldCheck className="text-status-healthy w-5 h-5" />
         </div>
       </div>
@@ -101,8 +101,8 @@ export default function MissionDetailPage() {
       <div className="grid grid-cols-3 gap-6 flex-1 min-h-0">
         
         {/* Left Side: React Flow Canvas */}
-        <div className="col-span-2 rounded-xl overflow-hidden glass-panel border border-border/50 flex flex-col relative shadow-[inset_0_0_50px_rgba(0,0,0,0.5)]">
-          <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10 bg-background/80 backdrop-blur px-4 py-1.5 rounded-full border border-primary/20 text-xs font-semibold text-primary tracking-widest shadow-[0_0_10px_rgba(var(--primary),0.3)]">
+        <div className="col-span-2 rounded-xl overflow-hidden shadow-sm border border border-border/50 flex flex-col relative shadow-sm">
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10 bg-background/80 backdrop-blur px-4 py-1.5 rounded-full border border-border text-xs font-semibold text-primary tracking-widest shadow-sm">
             LIVE ORCHESTRATION GRAPH
           </div>
           <OrchestrationGraph missionId={mission.id} />
@@ -111,9 +111,9 @@ export default function MissionDetailPage() {
         {/* Right Side: Live Logs & Tasks */}
         <div className="space-y-6 flex flex-col h-full overflow-hidden">
           
-          <Card className="glass-panel flex-1 flex flex-col min-h-0">
+          <Card className="shadow-sm border flex-1 flex flex-col min-h-0">
             <CardHeader className="py-4 border-b border-border/50 shrink-0">
-              <CardTitle className="text-sm font-heading text-primary flex items-center tracking-widest">
+              <CardTitle className="text-sm  text-primary flex items-center tracking-widest">
                 <Zap className="w-4 h-4 mr-2" />
                 EVENT LOG
               </CardTitle>
@@ -121,7 +121,7 @@ export default function MissionDetailPage() {
             <CardContent className="flex-1 overflow-y-auto p-4 space-y-3">
               {events.slice(0, 15).map(evt => (
                 <div key={evt.id} className="text-xs flex items-start space-x-2 pb-2 border-b border-border/30 last:border-0 animate-in slide-in-from-top-2">
-                  <span className="font-mono text-muted-foreground shrink-0">{evt.timestamp}</span>
+                  <span className="text-sm text-muted-foreground shrink-0">{evt.timestamp}</span>
                   <div>
                     <span className={`font-semibold ${evt.status === 'critical' ? 'text-status-critical' : evt.status === 'healthy' ? 'text-status-healthy' : 'text-primary'}`}>{evt.agent || 'SYSTEM'}</span>
                     <span className="text-foreground/80 block mt-0.5">{evt.action}</span>
@@ -131,9 +131,9 @@ export default function MissionDetailPage() {
             </CardContent>
           </Card>
           
-          <Card className="glass-panel shrink-0">
+          <Card className="shadow-sm border shrink-0">
             <CardHeader className="py-3 border-b border-border/50">
-              <CardTitle className="text-sm font-heading text-foreground">Tasks</CardTitle>
+              <CardTitle className="text-sm  text-foreground">Tasks</CardTitle>
             </CardHeader>
             <CardContent className="p-0">
               <div className="max-h-40 overflow-y-auto">

@@ -35,15 +35,15 @@ export default function AgentsPage() {
       
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-heading font-bold text-primary mb-2">Agent Registry</h1>
+          <h1 className="text-3xl  font-bold text-primary mb-2">Agent Registry</h1>
           <p className="text-muted-foreground">Manage and monitor autonomous AI agents</p>
         </div>
-        <button className="bg-primary/20 hover:bg-primary/30 text-primary border border-primary/50 px-4 py-2 rounded-md font-medium transition-colors flex items-center shadow-[0_0_15px_rgba(var(--primary),0.2)]">
+        <button className="bg-primary/20 hover:bg-primary/30 text-primary border border-border px-4 py-2 rounded-md font-medium transition-colors flex items-center shadow-sm">
           <Brain className="w-4 h-4 mr-2" /> Create Agent
         </button>
       </div>
 
-      <div className="glass-panel rounded-xl overflow-hidden border border-border/50">
+      <div className="shadow-sm border rounded-xl overflow-hidden border border-border/50">
         <Table>
           <TableHeader className="bg-card/50">
             <TableRow>
@@ -63,7 +63,7 @@ export default function AgentsPage() {
                     <Activity className={`w-4 h-4 mr-2 ${agent.status === 'Running' ? 'text-status-healthy animate-pulse' : 'text-muted-foreground'}`} />
                     {agent.name}
                   </div>
-                  <div className="text-xs text-muted-foreground font-mono mt-1">{agent.id}</div>
+                  <div className="text-xs text-muted-foreground text-sm mt-1">{agent.id}</div>
                 </TableCell>
                 <TableCell className="text-muted-foreground">{agent.role}</TableCell>
                 <TableCell>
@@ -74,18 +74,18 @@ export default function AgentsPage() {
                 <TableCell>
                   <div className="flex items-center space-x-2">
                     <ShieldCheck className={`w-4 h-4 ${getTrustColor(agent.trustScore)}`} />
-                    <span className={`font-mono font-medium ${getTrustColor(agent.trustScore)}`}>{agent.trustScore}%</span>
+                    <span className={`text-sm font-medium ${getTrustColor(agent.trustScore)}`}>{agent.trustScore}%</span>
                   </div>
                 </TableCell>
                 <TableCell>
                   <div className="text-xs space-y-1">
                     <div className="flex justify-between w-32">
                       <span className="text-muted-foreground">Success:</span>
-                      <span className="text-status-healthy font-mono">{agent.successRate}%</span>
+                      <span className="text-status-healthy text-sm">{agent.successRate}%</span>
                     </div>
                     <div className="flex justify-between w-32">
                       <span className="text-muted-foreground">Failure:</span>
-                      <span className="text-status-critical font-mono">{agent.failureRate}%</span>
+                      <span className="text-status-critical text-sm">{agent.failureRate}%</span>
                     </div>
                   </div>
                 </TableCell>

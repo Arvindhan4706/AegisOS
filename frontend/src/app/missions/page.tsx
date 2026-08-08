@@ -27,15 +27,15 @@ export default function MissionsPage() {
       
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-heading font-bold text-primary mb-2">Missions</h1>
+          <h1 className="text-3xl  font-bold text-primary mb-2">Missions</h1>
           <p className="text-muted-foreground">Manage and orchestrate autonomous agent missions</p>
         </div>
-        <button className="bg-primary/20 hover:bg-primary/30 text-primary border border-primary/50 px-4 py-2 rounded-md font-medium transition-colors flex items-center shadow-[0_0_15px_rgba(var(--primary),0.2)]">
+        <button className="bg-primary/20 hover:bg-primary/30 text-primary border border-border px-4 py-2 rounded-md font-medium transition-colors flex items-center shadow-sm">
           <Target className="w-4 h-4 mr-2" /> New Mission
         </button>
       </div>
 
-      <div className="glass-panel rounded-xl overflow-hidden border border-border/50">
+      <div className="shadow-sm border rounded-xl overflow-hidden border border-border/50">
         <Table>
           <TableHeader className="bg-card/50">
             <TableRow>
@@ -53,7 +53,7 @@ export default function MissionsPage() {
                 <TableCell>
                   <Link href={`/missions/${mission.id}`} className="hover:underline hover:text-primary transition-colors block">
                     <div className="font-semibold text-foreground">{mission.name}</div>
-                    <div className="text-xs text-muted-foreground font-mono mt-1">{mission.id}</div>
+                    <div className="text-xs text-muted-foreground text-sm mt-1">{mission.id}</div>
                   </Link>
                 </TableCell>
                 <TableCell>
@@ -73,7 +73,7 @@ export default function MissionsPage() {
                 <TableCell className="w-[200px]">
                   <div className="flex items-center space-x-2">
                     <Progress value={mission.progress} className="h-2" indicatorColor="bg-primary" />
-                    <span className="text-xs font-mono w-8">{mission.progress}%</span>
+                    <span className="text-xs text-sm w-8">{mission.progress}%</span>
                   </div>
                 </TableCell>
                 <TableCell>

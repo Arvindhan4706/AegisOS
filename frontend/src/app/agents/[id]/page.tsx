@@ -43,17 +43,17 @@ export default function AgentDetailPage() {
         </button>
         <div>
           <div className="flex items-center space-x-3">
-            <h1 className="text-3xl font-heading font-bold text-primary">{agent.name}</h1>
+            <h1 className="text-3xl  font-bold text-primary">{agent.name}</h1>
             <Badge variant="outline" className={getStatusColor(agent.status)}>
               {agent.status}
             </Badge>
           </div>
-          <p className="text-muted-foreground font-mono mt-1">ID: {agent.id} | Role: {agent.role}</p>
+          <p className="text-muted-foreground text-sm mt-1">ID: {agent.id} | Role: {agent.role}</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="glass-panel">
+        <Card className="shadow-sm border">
           <CardHeader>
             <CardTitle className="text-lg flex items-center">
               <ShieldCheck className="w-5 h-5 mr-2 text-status-healthy" />
@@ -62,20 +62,20 @@ export default function AgentDetailPage() {
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="flex items-end justify-between">
-              <span className="text-4xl font-bold font-heading">{agent.trustScore}</span>
+              <span className="text-4xl font-bold ">{agent.trustScore}</span>
               <span className="text-muted-foreground">/ 100</span>
             </div>
             <Progress value={agent.trustScore} className="h-2" indicatorColor={agent.trustScore > 90 ? "bg-status-healthy" : "bg-status-warning"} />
             <div className="space-y-3 text-sm">
-              <div className="flex justify-between"><span className="text-muted-foreground">Task Success:</span> <span className="font-mono text-status-healthy">97%</span></div>
-              <div className="flex justify-between"><span className="text-muted-foreground">Policy Compliance:</span> <span className="font-mono text-status-healthy">99%</span></div>
-              <div className="flex justify-between"><span className="text-muted-foreground">Tool Reliability:</span> <span className="font-mono text-primary">92%</span></div>
-              <div className="flex justify-between"><span className="text-muted-foreground">Human Approval Rate:</span> <span className="font-mono">91%</span></div>
+              <div className="flex justify-between"><span className="text-muted-foreground">Task Success:</span> <span className="text-sm text-status-healthy">97%</span></div>
+              <div className="flex justify-between"><span className="text-muted-foreground">Policy Compliance:</span> <span className="text-sm text-status-healthy">99%</span></div>
+              <div className="flex justify-between"><span className="text-muted-foreground">Tool Reliability:</span> <span className="text-sm text-primary">92%</span></div>
+              <div className="flex justify-between"><span className="text-muted-foreground">Human Approval Rate:</span> <span className="text-sm">91%</span></div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="glass-panel md:col-span-2">
+        <Card className="shadow-sm border md:col-span-2">
           <CardHeader>
             <CardTitle className="text-lg flex items-center">
               <Activity className="w-5 h-5 mr-2 text-primary" />
@@ -86,26 +86,26 @@ export default function AgentDetailPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
               <div className="p-4 bg-background rounded-lg border border-border/50 text-center">
                 <p className="text-muted-foreground text-xs mb-1">Memory Usage</p>
-                <p className="text-xl font-mono text-primary">{agent.memoryUsage}MB</p>
+                <p className="text-xl text-sm text-primary">{agent.memoryUsage}MB</p>
               </div>
               <div className="p-4 bg-background rounded-lg border border-border/50 text-center">
                 <p className="text-muted-foreground text-xs mb-1">Success Rate</p>
-                <p className="text-xl font-mono text-status-healthy">{agent.successRate}%</p>
+                <p className="text-xl text-sm text-status-healthy">{agent.successRate}%</p>
               </div>
               <div className="p-4 bg-background rounded-lg border border-border/50 text-center">
                 <p className="text-muted-foreground text-xs mb-1">Failure Rate</p>
-                <p className="text-xl font-mono text-status-critical">{agent.failureRate}%</p>
+                <p className="text-xl text-sm text-status-critical">{agent.failureRate}%</p>
               </div>
               <div className="p-4 bg-background rounded-lg border border-border/50 text-center">
                 <p className="text-muted-foreground text-xs mb-1">Avg Latency</p>
-                <p className="text-xl font-mono">142ms</p>
+                <p className="text-xl text-sm">142ms</p>
               </div>
             </div>
             
             <h4 className="text-sm font-medium mb-3 mt-6">Capabilities & Permissions</h4>
             <div className="flex flex-wrap gap-2">
               {agent.capabilities.map(cap => (
-                <Badge key={cap} variant="secondary" className="bg-primary/10 text-primary border-primary/20">
+                <Badge key={cap} variant="secondary" className="bg-primary/10 text-primary border-border">
                   <Wrench className="w-3 h-3 mr-1" /> {cap}
                 </Badge>
               ))}

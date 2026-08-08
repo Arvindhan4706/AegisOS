@@ -27,7 +27,7 @@ export default function Dashboard() {
       
       <div className="flex justify-between items-end">
         <div>
-          <h1 className="text-4xl font-heading font-bold text-primary mb-2">Command Center</h1>
+          <h1 className="text-4xl  font-bold text-primary mb-2">Command Center</h1>
           <p className="text-muted-foreground">Autonomous Agent Control Plane</p>
         </div>
         <div className="flex items-center space-x-2 bg-status-healthy/10 text-status-healthy px-4 py-2 rounded-full border border-status-healthy/20">
@@ -45,9 +45,9 @@ export default function Dashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
-          <Card className="glass-panel border-primary/20 h-[400px] flex flex-col">
+          <Card className="shadow-sm border border-border h-[400px] flex flex-col">
             <CardHeader>
-              <CardTitle className="text-lg font-heading text-primary flex items-center">
+              <CardTitle className="text-lg  text-primary flex items-center">
                 <Activity className="w-5 h-5 mr-2" />
                 Live Agent Activity
               </CardTitle>
@@ -63,9 +63,9 @@ export default function Dashboard() {
         </div>
 
         <div className="space-y-6">
-          <Card className="glass-panel h-[400px]">
+          <Card className="shadow-sm border h-[400px]">
             <CardHeader>
-              <CardTitle className="text-lg font-heading flex items-center">
+              <CardTitle className="text-lg  flex items-center">
                 <Server className="w-5 h-5 mr-2" />
                 System Health
               </CardTitle>
@@ -82,8 +82,8 @@ export default function Dashboard() {
       
       {/* Mission Pipeline */}
       <div>
-        <h2 className="text-xl font-heading text-primary mb-4">Mission Pipeline</h2>
-        <div className="flex items-center justify-between bg-card/40 border border-border/50 rounded-xl p-6 glass-panel">
+        <h2 className="text-xl  text-primary mb-4">Mission Pipeline</h2>
+        <div className="flex items-center justify-between bg-card/40 border border-border/50 rounded-xl p-6 shadow-sm border">
           <PipelineNode name="Mission" status="done" />
           <PipelineEdge active={true} />
           <PipelineNode name="Planner" status="done" />
@@ -106,18 +106,18 @@ export default function Dashboard() {
 
 function MetricCard({ title, value, icon: Icon, color, trend }: { title: string, value: string, icon: any, color: string, trend: string }) {
   return (
-    <Card className="glass-panel hover:border-primary/50 transition-colors">
+    <Card className="premium-card group hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
       <CardContent className="p-6">
         <div className="flex justify-between items-start">
           <div>
-            <p className="text-sm font-medium text-muted-foreground mb-1">{title}</p>
-            <h3 className="text-3xl font-bold font-heading">{value}</h3>
+            <p className="text-sm font-medium text-muted-foreground mb-1 tracking-tight">{title}</p>
+            <h3 className="text-3xl font-bold tracking-tight">{value}</h3>
           </div>
-          <div className={`p-3 rounded-lg bg-card border border-border/50 ${color}`}>
+          <div className={`p-3 rounded-xl bg-muted/50 border border-border/50 group-hover:scale-110 transition-transform duration-300 ${color}`}>
             <Icon className="w-5 h-5" />
           </div>
         </div>
-        <p className="text-xs text-muted-foreground mt-4">{trend}</p>
+        <p className="text-xs text-muted-foreground mt-4 font-medium">{trend}</p>
       </CardContent>
     </Card>
   )
@@ -132,12 +132,12 @@ function ActivityItem({ time, agent, action, status }: { time: string, agent: st
   };
   
   return (
-    <div className="flex items-start space-x-4">
-      <span className="text-xs font-mono text-muted-foreground mt-1 min-w-[70px]">{time}</span>
-      <div className="flex-1 border-b border-border/40 pb-4">
+    <div className="flex items-start space-x-4 group hover:bg-muted/20 p-2 -mx-2 rounded-lg transition-colors">
+      <span className="text-xs text-muted-foreground mt-1 min-w-[70px]">{time}</span>
+      <div className="flex-1 border-b border-border/40 pb-2 group-last:border-0">
         <div className="flex items-center">
-          <span className={`w-2 h-2 rounded-full mr-2 ${colors[status].replace('text-', 'bg-')}`}></span>
-          <span className={`font-semibold ${colors[status]}`}>{agent}</span>
+          <span className={`w-2 h-2 rounded-full mr-2 shadow-[0_0_10px_currentColor] ${colors[status].replace('text-', 'bg-')} ${colors[status]}`}></span>
+          <span className={`font-semibold tracking-tight ${colors[status]}`}>{agent}</span>
         </div>
         <p className="text-sm text-foreground/80 ml-4 mt-1">{action}</p>
       </div>
@@ -153,7 +153,7 @@ function HealthBar({ label, value, icon: Icon }: { label: string, value: number,
           <Icon className="w-4 h-4 mr-2" />
           {label}
         </span>
-        <span className="font-mono">{value}%</span>
+        <span className="text-sm">{value}%</span>
       </div>
       <Progress value={value} className="h-1.5" indicatorColor={value > 90 ? "bg-status-critical" : value > 75 ? "bg-status-warning" : "bg-status-healthy"} />
     </div>
@@ -165,7 +165,7 @@ function PipelineNode({ name, status }: { name: string, status: 'done' | 'active
     <div className={`flex flex-col items-center space-y-2 ${status === 'pending' ? 'opacity-50' : ''}`}>
       <div className={`w-12 h-12 rounded-full flex items-center justify-center border-2 
         ${status === 'done' ? 'bg-primary/20 border-primary text-primary' : 
-          status === 'active' ? 'bg-status-ai/20 border-status-ai text-status-ai shadow-[0_0_15px_rgba(var(--status-ai),0.5)] animate-pulse' : 
+          status === 'active' ? 'bg-status-ai/20 border-status-ai text-status-ai shadow-sm animate-pulse' : 
           'bg-card border-muted-foreground text-muted-foreground'}`}>
         {status === 'done' ? <ShieldCheck className="w-6 h-6" /> : 
          status === 'active' ? <Activity className="w-6 h-6" /> : 

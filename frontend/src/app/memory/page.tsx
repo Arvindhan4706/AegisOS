@@ -20,7 +20,7 @@ export default function MemoryPage() {
       
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-heading font-bold text-primary mb-2">Living Memory</h1>
+          <h1 className="text-3xl  font-bold text-primary mb-2">Living Memory</h1>
           <p className="text-muted-foreground">Vector-based associative memory and knowledge retrieval</p>
         </div>
         <div className="relative">
@@ -38,7 +38,7 @@ export default function MemoryPage() {
               <button 
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${activeTab === tab ? 'bg-primary/20 text-primary border border-primary/50' : 'text-muted-foreground hover:bg-muted'}`}
+                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${activeTab === tab ? 'bg-primary/20 text-primary border border-border' : 'text-muted-foreground hover:bg-muted'}`}
               >
                 {tab}
               </button>
@@ -47,7 +47,7 @@ export default function MemoryPage() {
 
           <div className="space-y-4">
             {mockMemories.filter(m => activeTab === 'All' || m.type === activeTab).map(memory => (
-              <Card key={memory.id} className="glass-panel border-border/50 hover:border-primary/30 transition-colors">
+              <Card key={memory.id} className="shadow-sm border border-border/50 hover:border-primary/30 transition-colors">
                 <CardContent className="p-5">
                   <div className="flex justify-between items-start mb-3">
                     <div className="flex items-center space-x-3">
@@ -56,7 +56,7 @@ export default function MemoryPage() {
                       </div>
                       <div>
                         <div className="flex items-center space-x-2">
-                          <span className="font-mono text-sm text-primary">{memory.id}</span>
+                          <span className="text-sm text-sm text-primary">{memory.id}</span>
                           <Badge variant="outline" className="text-xs bg-muted/50">{memory.type}</Badge>
                         </div>
                         <p className="text-sm font-medium text-foreground mt-0.5">{memory.mission}</p>
@@ -69,7 +69,7 @@ export default function MemoryPage() {
                       </div>
                       <div className="mt-1 flex items-center space-x-1 justify-end">
                         <span className="text-xs text-muted-foreground">Confidence:</span>
-                        <span className="text-sm font-mono text-status-healthy">{memory.confidence}%</span>
+                        <span className="text-sm text-sm text-status-healthy">{memory.confidence}%</span>
                       </div>
                     </div>
                   </div>
@@ -98,10 +98,10 @@ export default function MemoryPage() {
 
         {/* Right Col: Retrieval Vis */}
         <div className="space-y-6">
-          <Card className="glass-panel border-status-ai/30 relative overflow-hidden">
+          <Card className="shadow-sm border border-status-ai/30 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-status-ai/5 rounded-full blur-3xl" />
             <CardHeader className="pb-3 border-b border-border/30">
-              <CardTitle className="text-sm font-heading flex items-center text-status-ai">
+              <CardTitle className="text-sm  flex items-center text-status-ai">
                 <Sparkles className="w-4 h-4 mr-2" />
                 Live Context Injection
               </CardTitle>
@@ -117,7 +117,7 @@ export default function MemoryPage() {
               </div>
 
               <div className="text-center p-3 border border-status-ai/30 bg-status-ai/5 rounded-lg">
-                <p className="text-xs text-status-ai mb-1 font-mono">Embedding Search (simulated)</p>
+                <p className="text-xs text-status-ai mb-1 text-sm">Embedding Search (simulated)</p>
                 <div className="h-1.5 w-full bg-status-ai/20 rounded-full overflow-hidden mb-2">
                   <div className="h-full bg-status-ai w-full animate-[shimmer_2s_infinite]" style={{ backgroundImage: 'linear-gradient(90deg, transparent, rgba(var(--status-ai), 1) 50%, transparent)' }} />
                 </div>
@@ -131,11 +131,11 @@ export default function MemoryPage() {
                 <p className="text-xs text-muted-foreground mb-2">Top Relevant Memories</p>
                 <div className="p-2 border border-status-healthy/30 bg-status-healthy/5 rounded text-xs flex justify-between items-center">
                   <span className="text-foreground">M-782: High-risk approval req</span>
-                  <span className="font-mono text-status-healthy">0.942 sim</span>
+                  <span className="text-sm text-status-healthy">0.942 sim</span>
                 </div>
                 <div className="p-2 border border-status-healthy/30 bg-status-healthy/5 rounded text-xs flex justify-between items-center opacity-80">
                   <span className="text-foreground">M-779: DB Migration failure</span>
-                  <span className="font-mono text-status-healthy">0.871 sim</span>
+                  <span className="text-sm text-status-healthy">0.871 sim</span>
                 </div>
               </div>
             </CardContent>

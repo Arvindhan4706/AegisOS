@@ -19,17 +19,17 @@ export default function ToolsPage() {
       
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-heading font-bold text-primary mb-2">Tool Registry</h1>
+          <h1 className="text-3xl  font-bold text-primary mb-2">Tool Registry</h1>
           <p className="text-muted-foreground">Manage agent capabilities and tool-level permissions</p>
         </div>
-        <button className="bg-primary/20 hover:bg-primary/30 text-primary border border-primary/50 px-4 py-2 rounded-md font-medium transition-colors flex items-center shadow-[0_0_15px_rgba(var(--primary),0.2)]">
+        <button className="bg-primary/20 hover:bg-primary/30 text-primary border border-border px-4 py-2 rounded-md font-medium transition-colors flex items-center shadow-sm">
           <Wrench className="w-4 h-4 mr-2" /> Register Tool
         </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {tools.map(tool => (
-          <Card key={tool.id} className="glass-panel hover:border-primary/50 transition-all duration-300">
+          <Card key={tool.id} className="shadow-sm border hover:border-border transition-all duration-300">
             <CardHeader className="pb-2">
               <div className="flex justify-between items-start">
                 <div className="flex items-center space-x-3">
@@ -38,7 +38,7 @@ export default function ToolsPage() {
                   </div>
                   <div>
                     <CardTitle className="text-lg">{tool.name}</CardTitle>
-                    <p className="text-xs text-muted-foreground font-mono mt-0.5">{tool.id}</p>
+                    <p className="text-xs text-muted-foreground text-sm mt-0.5">{tool.id}</p>
                   </div>
                 </div>
               </div>

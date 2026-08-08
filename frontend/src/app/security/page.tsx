@@ -10,10 +10,10 @@ export default function SecurityPage() {
       
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-heading font-bold text-primary mb-2">Security & Policies</h1>
+          <h1 className="text-3xl  font-bold text-primary mb-2">Security & Policies</h1>
           <p className="text-muted-foreground">Manage agent boundaries, constraints, and trust policies</p>
         </div>
-        <div className="bg-status-healthy/10 text-status-healthy border border-status-healthy/30 px-4 py-2 rounded-md font-medium flex items-center shadow-[0_0_15px_rgba(var(--status-healthy),0.2)]">
+        <div className="bg-status-healthy/10 text-status-healthy border border-status-healthy/30 px-4 py-2 rounded-md font-medium flex items-center shadow-sm">
           <ShieldCheck className="w-5 h-5 mr-2" /> Posture: Secure
         </div>
       </div>
@@ -22,7 +22,7 @@ export default function SecurityPage() {
         
         {/* Policies */}
         <div className="space-y-6">
-          <h2 className="text-xl font-heading text-foreground flex items-center">
+          <h2 className="text-xl  text-foreground flex items-center">
             <Lock className="w-5 h-5 mr-2 text-primary" />
             Active Policies
           </h2>
@@ -61,12 +61,12 @@ export default function SecurityPage() {
 
         {/* Access Control & Secrets */}
         <div className="space-y-6">
-          <h2 className="text-xl font-heading text-foreground flex items-center">
+          <h2 className="text-xl  text-foreground flex items-center">
             <Key className="w-5 h-5 mr-2 text-primary" />
             Secrets & Access Control
           </h2>
           
-          <Card className="glass-panel border-border/50">
+          <Card className="shadow-sm border border-border/50">
             <CardHeader>
               <CardTitle className="text-lg">Secret Vault</CardTitle>
             </CardHeader>
@@ -77,7 +77,7 @@ export default function SecurityPage() {
             </CardContent>
           </Card>
 
-          <Card className="glass-panel border-status-warning/50 shadow-[0_0_15px_rgba(var(--status-warning),0.1)]">
+          <Card className="shadow-sm border border-status-warning/50 shadow-sm">
             <CardHeader className="pb-3 border-b border-border/50">
               <CardTitle className="text-lg text-status-warning flex items-center">
                 <AlertTriangle className="w-5 h-5 mr-2" />
@@ -103,11 +103,11 @@ export default function SecurityPage() {
 
 function PolicyCard({ id, name, desc, level, active }: { id: string, name: string, desc: string, level: string, active: boolean }) {
   return (
-    <Card className={`glass-panel border-l-4 ${level === 'CRITICAL' ? 'border-l-status-critical' : level === 'HIGH' ? 'border-l-status-warning' : 'border-l-status-healthy'}`}>
+    <Card className={`shadow-sm border border-l-4 ${level === 'CRITICAL' ? 'border-l-status-critical' : level === 'HIGH' ? 'border-l-status-warning' : 'border-l-status-healthy'}`}>
       <CardContent className="p-4">
         <div className="flex justify-between items-start mb-2">
           <div className="flex items-center space-x-2">
-            <Badge variant="outline" className="font-mono text-[10px] bg-muted/50">{id}</Badge>
+            <Badge variant="outline" className="text-sm text-[10px] bg-muted/50">{id}</Badge>
             <h3 className="font-semibold text-foreground text-sm">{name}</h3>
           </div>
           <Badge variant="outline" className={active ? 'border-status-healthy/50 text-status-healthy' : 'border-muted text-muted-foreground'}>
@@ -125,7 +125,7 @@ function SecretRow({ name, access }: { name: string, access: string }) {
     <div className="flex justify-between items-center p-3 border border-border/50 rounded bg-background/50">
       <div className="flex items-center space-x-2">
         <Key className="w-4 h-4 text-muted-foreground" />
-        <span className="font-mono text-sm">{name}</span>
+        <span className="text-sm text-sm">{name}</span>
       </div>
       <div className="text-xs text-muted-foreground max-w-[200px] truncate text-right">
         {access}

@@ -22,10 +22,10 @@ export default function ApprovalsPage() {
       
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-heading font-bold text-primary mb-2">Human Approvals</h1>
+          <h1 className="text-3xl  font-bold text-primary mb-2">Human Approvals</h1>
           <p className="text-muted-foreground">Review and authorize high-risk autonomous actions</p>
         </div>
-        <div className="bg-status-warning/10 text-status-warning border border-status-warning/30 px-4 py-2 rounded-md font-medium flex items-center shadow-[0_0_15px_rgba(var(--status-warning),0.2)]">
+        <div className="bg-status-warning/10 text-status-warning border border-status-warning/30 px-4 py-2 rounded-md font-medium flex items-center shadow-sm">
           <ShieldAlert className="w-5 h-5 mr-2 animate-pulse" /> 1 Pending Request
         </div>
       </div>
@@ -34,13 +34,13 @@ export default function ApprovalsPage() {
         
         {/* Pending Requests */}
         <div className="space-y-6">
-          <h2 className="text-xl font-heading text-foreground flex items-center">
+          <h2 className="text-xl  text-foreground flex items-center">
             <CheckSquare className="w-5 h-5 mr-2 text-status-warning" />
             Pending Authorization
           </h2>
           
           {approvals.filter(a => a.status === 'PENDING').map(req => (
-            <Card key={req.id} className="glass-panel border-status-warning/50 shadow-[0_0_20px_rgba(var(--status-warning),0.1)]">
+            <Card key={req.id} className="shadow-sm border border-status-warning/50 shadow-sm">
               <CardHeader className="pb-3 border-b border-border/50">
                 <div className="flex justify-between items-start">
                   <div>
@@ -53,7 +53,7 @@ export default function ApprovalsPage() {
               <CardContent className="pt-4 space-y-4">
                 <div className="bg-background/80 border border-border rounded-md p-3 relative group">
                   <div className="absolute top-2 right-2 text-muted-foreground opacity-50"><FileCode2 className="w-4 h-4" /></div>
-                  <pre className="text-xs font-mono text-primary/90 overflow-x-auto whitespace-pre-wrap">{req.details}</pre>
+                  <pre className="text-xs text-sm text-primary/90 overflow-x-auto whitespace-pre-wrap">{req.details}</pre>
                 </div>
                 
                 <div className="p-3 bg-status-critical/10 border border-status-critical/30 rounded-md text-xs text-status-critical flex items-start">
@@ -73,7 +73,7 @@ export default function ApprovalsPage() {
             </Card>
           ))}
           {approvals.filter(a => a.status === 'PENDING').length === 0 && (
-            <div className="text-center p-12 glass-panel rounded-xl border border-border/50">
+            <div className="text-center p-12 shadow-sm border rounded-xl border border-border/50">
               <CheckCircle2 className="w-12 h-12 text-status-healthy mx-auto mb-4 opacity-50" />
               <h3 className="text-lg font-medium text-foreground">All Caught Up</h3>
               <p className="text-sm text-muted-foreground">No pending approval requests.</p>
@@ -83,14 +83,14 @@ export default function ApprovalsPage() {
 
         {/* History */}
         <div className="space-y-6">
-          <h2 className="text-xl font-heading text-foreground flex items-center">
+          <h2 className="text-xl  text-foreground flex items-center">
             <CheckSquare className="w-5 h-5 mr-2 text-muted-foreground" />
             Decision History
           </h2>
           
           <div className="space-y-4">
             {approvals.filter(a => a.status !== 'PENDING').map(req => (
-              <Card key={req.id} className="glass-panel border-border/50 opacity-80">
+              <Card key={req.id} className="shadow-sm border border-border/50 opacity-80">
                 <CardContent className="p-4">
                   <div className="flex justify-between items-start mb-2">
                     <div>

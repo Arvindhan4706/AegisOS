@@ -6,71 +6,42 @@
 
 @layer base {
   :root {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Ultra-premium dark theme by default */
+    --background: 0 0% 2%;
+    --foreground: 0 0% 98%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 199 89% 48%; /* Neon cyan/blue accent */
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 226 100% 67%; /* Refined rich indigo/blue */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 9%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
+    --muted: 0 0% 11%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 0 0% 11%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 199 89% 48%;
+    --border: 0 0% 14%;
+    --input: 0 0% 14%;
+    --ring: 226 100% 67%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem; /* Slightly softer corners for premium feel */
     
-    /* Additional Custom Status Colors */
-    --status-healthy: 142.1 76.2% 36.3%;
-    --status-warning: 38 92% 50%;
-    --status-critical: 348 83% 47%;
-    --status-ai: 271 91% 65%; /* Purple for AI */
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%; /* Deep navy/black */
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 47.4% 11.2%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 199 89% 48%; /* Neon cyan */
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 199 89% 48%;
+    /* Elegant Status Colors */
+    --status-healthy: 142 70% 45%;
+    --status-warning: 38 92% 55%;
+    --status-critical: 348 83% 55%;
+    --status-ai: 270 85% 65%;
   }
 }
 
@@ -82,8 +53,15 @@
     @apply bg-background text-foreground;
   }
   
-  /* Glassmorphism utility */
-  .glass-panel {
-    @apply bg-card/40 backdrop-blur-md border border-border/50 shadow-[0_0_15px_rgba(0,0,0,0.2)];
+  /* Premium Soft Card utility */
+  .premium-card {
+    @apply bg-card/60 backdrop-blur-2xl border border-border/50 shadow-2xl;
+  }
+}
+
+/* Custom Utilities for Premium Look */
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-foreground to-muted-foreground;
   }
 }

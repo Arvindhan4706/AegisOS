@@ -26,7 +26,7 @@ const AgentNode = ({ data }: { data: any }) => {
   const bgClass = isFailed 
     ? 'bg-status-critical/10 border-status-critical/50' 
     : isRunning 
-      ? 'bg-status-healthy/10 border-status-healthy/50 shadow-[0_0_15px_rgba(var(--status-healthy),0.2)]'
+      ? 'bg-status-healthy/10 border-status-healthy/50 shadow-sm'
       : isWaiting
         ? 'bg-status-warning/10 border-status-warning/50 animate-pulse'
         : 'bg-card border-border';
@@ -50,7 +50,7 @@ const AgentNode = ({ data }: { data: any }) => {
         </div>
         <div>
           <div className="text-sm font-bold">{data.label}</div>
-          <div className={`text-[10px] uppercase font-mono ${textClass}`}>{data.status}</div>
+          <div className={`text-[10px] uppercase text-sm ${textClass}`}>{data.status}</div>
         </div>
       </div>
       {data.task && (

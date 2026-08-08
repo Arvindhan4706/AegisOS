@@ -42,11 +42,11 @@ export function Sidebar() {
   const logout = useAegisStore((state) => state.logout);
 
   return (
-    <div className="flex h-screen w-64 flex-col border-r border-border bg-card/50 glass-panel">
+    <div className="flex h-screen w-64 flex-col border-r border-border bg-card">
       <div className="flex h-16 items-center px-6 border-b border-border">
         <Activity className="h-6 w-6 text-primary mr-3" />
-        <span className="font-heading text-xl font-bold tracking-wider text-primary shadow-primary/20 drop-shadow-md">
-          AEGIS<span className="text-foreground">OS</span>
+        <span className="text-xl font-bold text-foreground">
+          Aegis<span className="text-primary font-medium">OS</span>
         </span>
       </div>
 
@@ -59,12 +59,15 @@ export function Sidebar() {
                 key={item.name}
                 href={item.href}
                 className={cn(
-                  "group flex items-center rounded-md px-3 py-2 text-sm font-medium transition-all duration-200",
+                  "group flex items-center rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-300 relative",
                   isActive
-                    ? "bg-primary/10 text-primary border border-primary/20 shadow-[0_0_10px_rgba(var(--primary),0.1)]"
-                    : "text-muted-foreground hover:bg-card hover:text-foreground border border-transparent"
+                    ? "text-primary bg-primary/5"
+                    : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
                 )}
               >
+                {isActive && (
+                  <div className="absolute left-0 top-1.5 bottom-1.5 w-1 bg-primary rounded-r-full shadow-[0_0_10px_rgba(var(--primary),0.5)]" />
+                )}
                 <item.icon
                   className={cn(
                     "mr-3 h-5 w-5 flex-shrink-0 transition-colors",
@@ -79,19 +82,19 @@ export function Sidebar() {
         </nav>
       </div>
       
-      <div className="border-t border-border p-4 bg-background/50 space-y-4">
+      <div className="border-t border-border p-4 bg-muted/20 space-y-4">
         {/* System Status Compact */}
         <div className="flex items-center justify-between text-xs text-muted-foreground px-2">
-          <span>Sys: <span className="text-status-healthy">OK</span></span>
-          <span>Net: <span className="text-status-healthy">99%</span></span>
-          <span className="text-[10px] bg-primary/10 text-primary border border-primary/30 px-1 rounded">SIM</span>
+          <span>Sys: <span className="text-status-healthy font-medium">OK</span></span>
+          <span>Net: <span className="text-status-healthy font-medium">99%</span></span>
+          <span className="text-[10px] bg-primary/10 text-primary border border-border px-1 rounded">SIM</span>
         </div>
 
         {/* User Profile */}
         {currentUser && (
-          <div className="flex flex-col bg-card border border-border/50 rounded-lg p-3">
+          <div className="flex flex-col bg-background border border-border rounded-lg p-3 shadow-sm">
             <div className="flex items-center space-x-3 mb-3">
-              <img src={currentUser.avatar} alt="Avatar" className="w-10 h-10 rounded-full bg-muted border border-border/50" />
+              <img src={currentUser.avatar} alt="Avatar" className="w-10 h-10 rounded-full bg-muted border border-border" />
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-foreground truncate">{currentUser.name}</p>
                 <p className="text-xs text-muted-foreground truncate">{currentUser.role}</p>
@@ -99,7 +102,7 @@ export function Sidebar() {
             </div>
             <button 
               onClick={() => logout()}
-              className="w-full flex items-center justify-center space-x-2 text-xs font-medium text-status-critical/80 hover:text-status-critical bg-status-critical/10 hover:bg-status-critical/20 border border-status-critical/20 py-1.5 rounded transition-colors"
+              className="w-full flex items-center justify-center space-x-2 text-xs font-medium text-destructive/80 hover:text-destructive bg-destructive/10 hover:bg-destructive/20 border border-destructive/20 py-1.5 rounded transition-colors"
             >
               <LogOut className="w-3 h-3" />
               <span>Sign Out</span>

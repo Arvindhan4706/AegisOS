@@ -12,14 +12,14 @@ export default function SettingsPage() {
     <div className="p-8 max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500">
       
       <div>
-        <h1 className="text-3xl font-heading font-bold text-primary mb-2">System Configuration</h1>
+        <h1 className="text-3xl  font-bold text-primary mb-2">System Configuration</h1>
         <p className="text-muted-foreground">Global settings for the AegisOS harness</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         
         <div className="md:col-span-1 space-y-2">
-          <button className="w-full text-left px-4 py-2 bg-primary/10 text-primary border border-primary/20 rounded-md font-medium flex items-center">
+          <button className="w-full text-left px-4 py-2 bg-primary/10 text-primary border border-border rounded-md font-medium flex items-center">
             <MonitorPlay className="w-4 h-4 mr-2" /> Presentation Mode
           </button>
           <button className="w-full text-left px-4 py-2 text-muted-foreground hover:bg-muted hover:text-foreground rounded-md font-medium flex items-center transition-colors">
@@ -35,7 +35,7 @@ export default function SettingsPage() {
 
         <div className="md:col-span-2 space-y-6">
           
-          <Card className="glass-panel border-primary/50 shadow-[0_0_20px_rgba(var(--primary),0.1)]">
+          <Card className="shadow-sm border border-border shadow-sm">
             <CardHeader>
               <CardTitle className="text-xl text-primary flex items-center">
                 <MonitorPlay className="w-5 h-5 mr-2" />

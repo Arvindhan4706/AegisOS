@@ -11,14 +11,14 @@ export default function OrchestratorPage() {
       
       <div className="flex justify-between items-center shrink-0">
         <div>
-          <h1 className="text-3xl font-heading font-bold text-primary mb-2">Orchestrator</h1>
+          <h1 className="text-3xl  font-bold text-primary mb-2">Orchestrator</h1>
           <p className="text-muted-foreground">Design and simulate autonomous agent workflows</p>
         </div>
         <div className="flex space-x-3">
           <button className="bg-card hover:bg-muted text-foreground border border-border px-4 py-2 rounded-md font-medium transition-colors flex items-center">
             <Save className="w-4 h-4 mr-2" /> Save Workflow
           </button>
-          <button className="bg-primary/20 hover:bg-primary/30 text-primary border border-primary/50 px-4 py-2 rounded-md font-medium transition-colors flex items-center shadow-[0_0_15px_rgba(var(--primary),0.2)]">
+          <button className="bg-primary/20 hover:bg-primary/30 text-primary border border-border px-4 py-2 rounded-md font-medium transition-colors flex items-center shadow-sm">
             <Play className="w-4 h-4 mr-2" /> Run Simulation
           </button>
         </div>
@@ -27,16 +27,16 @@ export default function OrchestratorPage() {
       <div className="grid grid-cols-4 gap-6 flex-1 min-h-0">
         
         {/* Left Panel: Available Agents */}
-        <Card className="glass-panel h-full flex flex-col min-h-0 border-border/50">
+        <Card className="shadow-sm border h-full flex flex-col min-h-0 border-border/50">
           <CardHeader className="py-4 border-b border-border/50 shrink-0">
-            <CardTitle className="text-sm font-heading flex items-center">
+            <CardTitle className="text-sm  flex items-center">
               <Plus className="w-4 h-4 mr-2 text-primary" />
               Available Agents
             </CardTitle>
           </CardHeader>
           <CardContent className="p-4 space-y-3 overflow-y-auto flex-1">
             {['Planner', 'Researcher', 'Risk Guardian', 'Executor', 'Validator', 'Memory', 'Recovery'].map(agent => (
-              <div key={agent} className="p-3 bg-background border border-border/50 rounded-lg cursor-grab hover:border-primary/50 transition-colors">
+              <div key={agent} className="p-3 bg-background border border-border/50 rounded-lg cursor-grab hover:border-border transition-colors">
                 <p className="font-semibold text-sm">{agent} Agent</p>
                 <p className="text-xs text-muted-foreground mt-1">Drag to add to workflow</p>
               </div>
@@ -45,14 +45,14 @@ export default function OrchestratorPage() {
         </Card>
 
         {/* Center: React Flow Canvas */}
-        <div className="col-span-2 rounded-xl overflow-hidden glass-panel border border-border/50 flex flex-col relative h-full">
+        <div className="col-span-2 rounded-xl overflow-hidden shadow-sm border border border-border/50 flex flex-col relative h-full">
           <OrchestrationGraph />
         </div>
 
         {/* Right Panel: Node Configuration */}
-        <Card className="glass-panel h-full flex flex-col min-h-0 border-border/50">
+        <Card className="shadow-sm border h-full flex flex-col min-h-0 border-border/50">
           <CardHeader className="py-4 border-b border-border/50 shrink-0">
-            <CardTitle className="text-sm font-heading flex items-center">
+            <CardTitle className="text-sm  flex items-center">
               <Settings className="w-4 h-4 mr-2 text-primary" />
               Node Configuration
             </CardTitle>
