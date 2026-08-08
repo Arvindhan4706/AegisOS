@@ -9,6 +9,7 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const isAuthenticated = useAegisStore((state) => state.isAuthenticated);
+  const initializeRealtime = useAegisStore((state) => state.initializeRealtime);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -16,7 +17,13 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (mounted && !isAuthenticated && pathname !== '/login') {
+    if (isAuthenticated) {
+      initializeRealtime();
+    }
+  }, [isAuthenticated, initializeRealtime]);
+
+  useEffect(() => {
+    if (mounted && !isAuthenticated && pathname !== '/login' && pathname !== '/') {
       router.replace('/login');
     }
   }, [mounted, isAuthenticated, pathname, router]);
@@ -25,9 +32,9 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
     return <div className="h-screen w-screen bg-background flex items-center justify-center"><div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div></div>;
   }
 
-  const isLoginPage = pathname === '/login';
+  const isPublicPage = pathname === '/login' || pathname === '/';
 
-  if (isLoginPage) {
+  if (isPublicPage) {
     return <main className="h-screen w-screen bg-background overflow-y-auto">{children}</main>;
   }
 

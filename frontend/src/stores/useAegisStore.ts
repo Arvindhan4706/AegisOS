@@ -1,34 +1,35 @@
 import { create } from 'zustand';
 import { Agent, Mission, SystemEvent } from '@/types';
+import { supabase } from '@/lib/supabase';
 
-// Mock Initial Data
-const INITIAL_AGENTS: Agent[] = [
-  { id: 'a1', name: 'Mission Planner', role: 'Strategic Planning', status: 'Running', trustScore: 96, capabilities: ['Planning'], permissions: ['Mission.Read', 'Mission.Write'], memoryUsage: 124, successRate: 98, failureRate: 1, currentTask: 'Generate execution plan', createdAt: new Date().toISOString() },
-  { id: 'a2', name: 'Research Agent', role: 'Information Retrieval', status: 'Running', trustScore: 92, capabilities: ['Search'], permissions: ['Knowledge.Read'], memoryUsage: 342, successRate: 95, failureRate: 3, currentTask: 'Acquire knowledge', createdAt: new Date().toISOString() },
-  { id: 'a3', name: 'Risk Guardian', role: 'Risk Assessment', status: 'Monitoring', trustScore: 98, capabilities: ['Analysis'], permissions: ['Policy.Read', 'Action.Block'], memoryUsage: 88, successRate: 99, failureRate: 0, currentTask: 'Monitor policies', createdAt: new Date().toISOString() },
-  { id: 'a4', name: 'Execution Agent', role: 'Controlled Execution', status: 'Waiting Approval', trustScore: 87, capabilities: ['Execute'], permissions: ['Infra.Write'], memoryUsage: 512, successRate: 91, failureRate: 5, currentTask: 'Deploy infrastructure', createdAt: new Date().toISOString() },
-  { id: 'a5', name: 'Memory Curator', role: 'Knowledge Management', status: 'Running', trustScore: 94, capabilities: ['Storage'], permissions: ['Memory.Read', 'Memory.Write'], memoryUsage: 1024, successRate: 97, failureRate: 1, currentTask: 'Index recent event', createdAt: new Date().toISOString() },
-  { id: 'a6', name: 'Recovery Agent', role: 'Failure Detection', status: 'Standby', trustScore: 99, capabilities: ['Restore'], permissions: ['System.Restore'], memoryUsage: 45, successRate: 100, failureRate: 0, createdAt: new Date().toISOString() },
-];
+// Helper to map DB row to Agent object
+const mapAgent = (row: any): Agent => ({
+  id: row.id,
+  name: row.name,
+  role: row.role,
+  status: row.status,
+  trustScore: row.trust_score,
+  capabilities: row.capabilities,
+  permissions: row.permissions,
+  memoryUsage: row.memory_usage,
+  successRate: row.success_rate,
+  failureRate: row.failure_rate,
+  currentTask: row.current_task,
+  createdAt: row.created_at,
+});
 
-const INITIAL_MISSIONS: Mission[] = [
-  {
-    id: 'M-2048',
-    name: 'Emergency Infrastructure Coordination Simulation',
-    status: 'RUNNING',
-    priority: 'CRITICAL',
-    agents: ['a1', 'a2', 'a3', 'a4', 'a6'],
-    tasks: [
-      { id: 't1', name: 'Assess impact', status: 'COMPLETED', assignedTo: 'a1' },
-      { id: 't2', name: 'Retrieve historical mitigations', status: 'COMPLETED', assignedTo: 'a2' },
-      { id: 't3', name: 'Evaluate risk of automated failover', status: 'COMPLETED', assignedTo: 'a3' },
-      { id: 't4', name: 'Execute failover sequence', status: 'PENDING', assignedTo: 'a4' },
-    ],
-    progress: 74,
-    riskLevel: 'HIGH',
-    startedAt: new Date().toISOString()
-  }
-];
+// Helper to map DB row to Mission object
+const mapMission = (row: any): Mission => ({
+  id: row.id,
+  name: row.name,
+  status: row.status,
+  priority: row.priority,
+  agents: row.agents,
+  tasks: row.tasks,
+  progress: row.progress,
+  riskLevel: row.risk_level,
+  startedAt: row.started_at,
+});
 
 export interface User {
   name: string;
@@ -44,34 +45,86 @@ interface AegisState {
   demoMode: boolean;
   currentUser: User | null;
   isAuthenticated: boolean;
+  isRealtimeInitialized: boolean;
   
   // Actions
+  initializeRealtime: () => Promise<void>;
   setDemoMode: (enabled: boolean) => void;
-  updateAgentStatus: (id: string, status: Agent['status']) => void;
-  updateMissionStatus: (id: string, status: Mission['status']) => void;
+  updateAgentStatus: (id: string, status: Agent['status']) => Promise<void>;
+  updateMissionStatus: (id: string, status: Mission['status']) => Promise<void>;
   addEvent: (event: Omit<SystemEvent, 'id' | 'timestamp'>) => void;
-  injectFailure: (agentId: string) => void;
+  injectFailure: (agentId: string) => Promise<void>;
   login: (user: User) => void;
   logout: () => void;
 }
 
 export const useAegisStore = create<AegisState>((set, get) => ({
-  agents: INITIAL_AGENTS,
-  missions: INITIAL_MISSIONS,
+  agents: [],
+  missions: [],
   events: [],
   demoMode: false,
   currentUser: null,
   isAuthenticated: false,
+  isRealtimeInitialized: false,
+
+  initializeRealtime: async () => {
+    if (get().isRealtimeInitialized || !supabase) return;
+    set({ isRealtimeInitialized: true });
+
+    // 1. Initial Fetch
+    const [agentsRes, missionsRes] = await Promise.all([
+      supabase.from('agents').select('*'),
+      supabase.from('missions').select('*'),
+    ]);
+
+    if (agentsRes.data) set({ agents: agentsRes.data.map(mapAgent) });
+    if (missionsRes.data) set({ missions: missionsRes.data.map(mapMission) });
+
+    // 2. Realtime Subscriptions
+    supabase.channel('public:agents')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'agents' }, (payload) => {
+        const row = payload.new as any;
+        if (!row || !row.id) return;
+        set((state) => {
+          const exists = state.agents.find(a => a.id === row.id);
+          if (exists) {
+            return { agents: state.agents.map(a => a.id === row.id ? mapAgent(row) : a) };
+          }
+          return { agents: [...state.agents, mapAgent(row)] };
+        });
+      }).subscribe();
+
+    supabase.channel('public:missions')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'missions' }, (payload) => {
+        const row = payload.new as any;
+        if (!row || !row.id) return;
+        set((state) => {
+          const exists = state.missions.find(m => m.id === row.id);
+          if (exists) {
+            return { missions: state.missions.map(m => m.id === row.id ? mapMission(row) : m) };
+          }
+          return { missions: [...state.missions, mapMission(row)] };
+        });
+      }).subscribe();
+  },
 
   setDemoMode: (enabled) => set({ demoMode: enabled }),
   
-  updateAgentStatus: (id, status) => set((state) => ({
-    agents: state.agents.map(a => a.id === id ? { ...a, status } : a)
-  })),
+  updateAgentStatus: async (id, status) => {
+    if (supabase) {
+      await supabase.from('agents').update({ status }).eq('id', id);
+    } else {
+      set((state) => ({ agents: state.agents.map(a => a.id === id ? { ...a, status } : a) }));
+    }
+  },
 
-  updateMissionStatus: (id, status) => set((state) => ({
-    missions: state.missions.map(m => m.id === id ? { ...m, status } : m)
-  })),
+  updateMissionStatus: async (id, status) => {
+    if (supabase) {
+      await supabase.from('missions').update({ status }).eq('id', id);
+    } else {
+      set((state) => ({ missions: state.missions.map(m => m.id === id ? { ...m, status } : m) }));
+    }
+  },
 
   addEvent: (event) => set((state) => {
     const newEvent: SystemEvent = {
@@ -82,9 +135,9 @@ export const useAegisStore = create<AegisState>((set, get) => ({
     return { events: [newEvent, ...state.events].slice(0, 100) };
   }),
 
-  injectFailure: (agentId) => {
+  injectFailure: async (agentId) => {
     const { updateAgentStatus, addEvent } = get();
-    updateAgentStatus(agentId, 'Failed');
+    await updateAgentStatus(agentId, 'Failed');
     addEvent({
       type: 'FAILURE',
       agent: agentId,
@@ -94,5 +147,8 @@ export const useAegisStore = create<AegisState>((set, get) => ({
   },
 
   login: (user) => set({ currentUser: user, isAuthenticated: true }),
-  logout: () => set({ currentUser: null, isAuthenticated: false }),
+  logout: () => {
+    if (supabase) supabase.auth.signOut();
+    set({ currentUser: null, isAuthenticated: false });
+  },
 }));
