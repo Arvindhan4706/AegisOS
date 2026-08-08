@@ -123,7 +123,7 @@ export default function MissionDetailPage() {
                 <div key={evt.id} className="text-xs flex items-start space-x-2 pb-2 border-b border-border/30 last:border-0 animate-in slide-in-from-top-2">
                   <span className="text-sm text-muted-foreground shrink-0">{evt.timestamp}</span>
                   <div>
-                    <span className={`font-semibold ${evt.status === 'critical' ? 'text-status-critical' : evt.status === 'healthy' ? 'text-status-healthy' : 'text-primary'}`}>{evt.agent || 'SYSTEM'}</span>
+                    <span className={`font-semibold ${evt.status === 'critical' ? 'text-status-critical' : evt.status === 'success' ? 'text-status-healthy' : 'text-primary'}`}>{evt.agent || 'SYSTEM'}</span>
                     <span className="text-foreground/80 block mt-0.5">{evt.action}</span>
                   </div>
                 </div>
