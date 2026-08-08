@@ -2,7 +2,7 @@
 
 import { OrchestrationGraph } from "@/components/OrchestrationGraph";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Settings, Play, Save, Plus } from "lucide-react";
+import { Settings, Play, Save, Plus, AlertTriangle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 export default function OrchestratorPage() {
